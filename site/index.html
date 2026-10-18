@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colouring Building Contract</title>
+  <meta name="description" content="A draft proposal for a shared, open contract that makes building data from different cities and countries understandable, comparable and reusable, without removing local flexibility.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe5">
+  <meta property="og:title" content="Colouring Building Contract — a draft proposal">
+  <meta property="og:description" content="Shared meaning, local flexibility, reusable data. A draft proposal open for community discussion.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+  <header class="topbar">
+    <a class="wordmark" href="#start" aria-label="Colouring Building Contract, back to top">
+      <span class="wordmark-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span>Colouring Building Contract</span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#problem">Problem</a>
+      <a href="#idea">Idea</a>
+      <a href="#contract">Contract</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#ready">Outputs</a>
+      <a href="#map">Map</a>
+      <a href="#join">Join</a>
+      <a href="#feedback" class="topnav-cta">Feedback</a>
+    </nav>
+  </header>
+
+  <nav class="dots" aria-label="Section navigation" id="dots"></nav>
+
+  <main id="main">
+
+    <!-- ============================================================ HERO -->
+    <section class="hero" id="start" data-label="Start">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="draft-badge"><span class="pulse" aria-hidden="true"></span> Draft proposal · open for discussion</p>
+          <h1>Shared meaning for the world’s <em>building data</em>.</h1>
+          <p class="lede">A proposed open contract that lets building data from different cities and countries be <strong>understood, compared and reused</strong> — while every place keeps its own sources, tools and local detail.</p>
+          <dl class="meta">
+            <div><dt>Occasion</dt><dd>Community meeting · Tuesday 20 October 2026</dd></div>
+            <div><dt>Status</dt><dd>Contract 0.1.0 · draft, not implemented</dd></div>
+          </dl>
+          <div class="hero-actions">
+            <a class="btn btn-ink" href="#problem">Start the story <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="#feedback">Jump to the questions</a>
+          </div>
+          <p class="kbd-hint">Presenting? Use <kbd>→</kbd> and <kbd>←</kbd> to step through sections.</p>
+        </div>
+
+        <figure class="hero-figure">
+          <div class="skyline-frame">
+            <svg id="skyline" viewBox="0 0 640 360" role="img" aria-labelledby="skyline-title">
+              <title id="skyline-title">An illustrated street of buildings, coloured by the selected attribute</title>
+            </svg>
+          </div>
+          <div class="skyline-controls" role="group" aria-label="Colour the illustration by">
+            <span class="control-label">Colour by</span>
+            <button type="button" class="pill" data-colour="use" aria-pressed="true">Use</button>
+            <button type="button" class="pill" data-colour="age" aria-pressed="false">Age</button>
+            <button type="button" class="pill" data-colour="height" aria-pressed="false">Height</button>
+            <button type="button" class="pill" data-colour="none" aria-pressed="false">Raw</button>
+          </div>
+          <figcaption><span class="tag-illustration">Illustration</span> Hypothetical buildings. “Colouring” a map means shading each building by one attribute — which only works if the attribute means the same thing everywhere.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================ PROBLEM -->
+    <section class="section" id="problem" data-label="The problem">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>01</span> The problem</p>
+          <h2>Building data exists everywhere.<br><span class="muted-h">It just doesn’t mean the same thing.</span></h2>
+          <p class="section-intro">Cities and countries publish rich building information. But every source has its own schema, vocabulary and definitions — so even “height” or “year built” can quietly mean different things.</p>
+        </header>
+
+        <ul class="source-cloud" aria-label="Examples of building data sources">
+          <li>CityGML 3D models</li>
+          <li>INSPIRE datasets</li>
+          <li>OpenStreetMap</li>
+          <li>Overture Maps</li>
+          <li>National cadastres</li>
+          <li>PLATEAU</li>
+          <li>Building registers</li>
+          <li>Energy certificates</li>
+          <li>Heritage lists</li>
+        </ul>
+        <p class="fineprint center">Examples of where building data comes from. Listing a source does not imply its participation or endorsement.</p>
+
+        <div class="compare" id="compare">
+          <div class="compare-tabs" role="tablist" aria-label="Choose a question about the example building">
+            <button role="tab" id="tab-height" aria-controls="compare-panel" aria-selected="true" data-q="height">How tall is it?</button>
+            <button role="tab" id="tab-year" aria-controls="compare-panel" aria-selected="false" tabindex="-1" data-q="year">When was it built?</button>
+            <button role="tab" id="tab-use" aria-controls="compare-panel" aria-selected="false" tabindex="-1" data-q="use">What is it used for?</button>
+            <button role="tab" id="tab-missing" aria-controls="compare-panel" aria-selected="false" tabindex="-1" data-q="missing">What if nobody knows?</button>
+          </div>
+
+          <div class="compare-body" id="compare-panel" role="tabpanel" aria-labelledby="tab-height">
+            <figure class="compare-figure">
+              <svg id="building-figure" viewBox="0 0 380 470" role="img" aria-labelledby="bf-title">
+                <title id="bf-title">One example building, annotated for the selected question</title>
+              </svg>
+            </figure>
+
+            <div class="compare-cols">
+              <div class="compare-sources">
+                <p class="col-label">Three sources describe the same building…</p>
+                <ol class="source-cards" id="source-cards"></ol>
+              </div>
+              <div class="compare-contract">
+                <p class="col-label">…the contract gives each value one meaning</p>
+                <div class="contract-card" id="contract-card" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+          <p class="fineprint"><span class="tag-illustration">Illustration</span> Sources, field names and values are hypothetical. Contract attribute names and rules are from the draft contract 0.1.0.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ IDEA -->
+    <section class="section section-tint" id="idea" data-label="The idea">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>02</span> The idea</p>
+          <h2>Agree on <em>meaning</em>,<br>not on infrastructure.</h2>
+          <p class="section-intro">Nobody has to change their original data model. Each place maps its data onto a small shared core — and keeps everything else as local detail, clearly labelled.</p>
+        </header>
+
+        <div class="idea-grid">
+          <figure class="orbit-figure">
+            <svg id="orbit" viewBox="0 0 520 520" role="img" aria-labelledby="orbit-title">
+              <title id="orbit-title">A shared core surrounded by local, prefixed attributes from different places and sources</title>
+            </svg>
+            <figcaption class="fineprint"><span class="tag-illustration">Illustration</span> Prefixes such as <code>de_</code>, <code>gb_</code>, <code>osm_</code> and <code>overture_</code> are examples from the draft; the local attributes shown are hypothetical.</figcaption>
+          </figure>
+
+          <div class="pillars">
+            <article class="pillar">
+              <p class="pillar-k">Shared</p>
+              <h3>A common semantic core</h3>
+              <p>One definition per attribute: same unit, same measurement reference, same code list — in every delivery. This is <strong>Tier 1</strong>.</p>
+            </article>
+            <article class="pillar">
+              <p class="pillar-k">Local</p>
+              <h3>Your sources, your tools, your extras</h3>
+              <p>Country- or source-specific attributes travel alongside, with a prefix and a self-description. They never reuse or overwrite a shared name. This is <strong>Tier 2</strong>.</p>
+            </article>
+            <article class="pillar">
+              <p class="pillar-k">Reusable</p>
+              <h3>A portable data product</h3>
+              <p>The result is a self-describing package in open formats that any compatible map or tool can read — no country-specific code needed.</p>
+            </article>
+            <div class="promote">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <p><strong>Local ideas can become shared.</strong> A Tier 2 attribute can be proposed for the core once the same tested definition exists in at least two independent sources, with a code list, unit, examples and a reviewed version change.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ CONTRACT -->
+    <section class="section" id="contract" data-label="The contract">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>03</span> What the contract defines</p>
+          <h2>Eight categories.<br>One dictionary of meaning.</h2>
+          <p class="section-intro">The draft contract describes what a building record can say, how each value is measured, and how a map should behave when something is unknown. Explore the categories:</p>
+        </header>
+
+        <ul class="stats" aria-label="Draft contract at a glance">
+          <li><b>64</b><span>attributes in the draft dictionary</span></li>
+          <li><b>3</b><span>required: id, outline, record kind</span></li>
+          <li><b>9</b><span>core: worldwide meaning, drive map themes</span></li>
+          <li><b>52</b><span>optional: extended detail and draft energy</span></li>
+        </ul>
+
+        <div class="explorer">
+          <div class="cat-tabs" role="tablist" aria-label="Contract categories" id="cat-tabs"></div>
+          <div class="cat-panel" role="tabpanel" id="cat-panel" aria-live="polite"></div>
+        </div>
+        <p class="levels-key" aria-label="Levels">
+          <span class="lvl lvl-R">R</span> Required in every delivery
+          <span class="lvl lvl-C">C</span> Core — worldwide meaning
+          <span class="lvl lvl-X">X</span> Extended — optional detail
+          <span class="lvl lvl-E">E</span> Energy — optional, draft
+        </p>
+
+        <h3 class="subhead">Five ground rules that make data comparable</h3>
+        <div class="rules">
+          <article class="rule">
+            <div class="rule-art" aria-hidden="true"><span class="eq">=</span></div>
+            <h4>One meaning</h4>
+            <p>A matching name and type is not enough. Same unit, same event, same reference, same classification — everywhere.</p>
+          </article>
+          <article class="rule">
+            <div class="rule-art" aria-hidden="true"><span class="null">null</span></div>
+            <h4>Unknown is unknown</h4>
+            <p>Missing values are <code>null</code>. Never <code>0</code>, <code>9999</code> or a fake class. A zero is a real zero.</p>
+          </article>
+          <article class="rule">
+            <div class="rule-art" aria-hidden="true"><span class="nocol">∅</span></div>
+            <h4>No data, no column</h4>
+            <p>If a delivery has nothing for an attribute, it leaves it out and says so — the map shows that theme as unavailable, with the reason.</p>
+          </article>
+          <article class="rule">
+            <div class="rule-art" aria-hidden="true"><span class="method">how?</span></div>
+            <h4>Say how you know</h4>
+            <p>Every attribute declares its method: measured, administrative record, inferred, modelled, crowdsourced or derived from geometry. Measured and modelled are never mixed.</p>
+          </article>
+          <article class="rule">
+            <div class="rule-art" aria-hidden="true"><span class="prov">src</span></div>
+            <h4>Show where it came from</h4>
+            <p>Source, source date and coverage travel with each attribute. Coverage is computed from the data, never typed by hand.</p>
+          </article>
+        </div>
+
+        <h3 class="subhead">Standing on existing standards</h3>
+        <div class="anchors">
+          <article class="anchor anchor-primary">
+            <p class="anchor-role">Primary anchor</p>
+            <h4>INSPIRE Buildings</h4>
+            <p>The European data specification for buildings: use values, construction condition, height references, building nature.</p>
+          </article>
+          <article class="anchor">
+            <p class="anchor-role">Secondary anchor</p>
+            <h4>CityGML 3.0</h4>
+            <p>The OGC model for 3D cities: buildings and building parts, storeys, construction and demolition dates.</p>
+          </article>
+          <article class="anchor">
+            <p class="anchor-role">Energy anchor</p>
+            <h4>CityGML Energy ADE</h4>
+            <p>An extension for energy modelling; the exact version is pinned in every crosswalk because it is still evolving.</p>
+          </article>
+          <article class="anchor">
+            <p class="anchor-role">Guidance for use classes</p>
+            <h4>Eurostat CC</h4>
+            <p>The Classification of Types of Constructions helps decide which use class a building belongs to.</p>
+          </article>
+        </div>
+        <p class="note-box"><strong>Aligned with, not part of.</strong> Contract attribute names are Colouring names, not official INSPIRE or CityGML property names. The contract is a proposed application profile; it is not an official standard and has no endorsement from INSPIRE, OGC, Eurostat or the Colouring Cities Research Programme.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ WORKFLOW -->
+    <section class="section section-dark" id="workflow" data-label="The workflow">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>04</span> The envisioned workflow</p>
+          <h2>Three steps,<br>one shared rulebook.</h2>
+          <p class="section-intro">Every place would do the same three things with its own data. The contract is not an extra step. It is the rulebook each step uses to know what “right” looks like. Select a step to see which rules it relies on.</p>
+        </header>
+
+        <div class="flow" id="flow">
+          <div class="rulebook" id="rulebook">
+            <p class="rb-head">
+              <span class="rb-kicker">The rulebook</span>
+              <span class="rb-title">Colouring Building Contract</span>
+              <span class="status s-doc">Documented draft</span>
+            </p>
+            <ul class="rb-items">
+              <li data-steps="1"><b>What each field means</b><span>e.g. height = ground to roof edge</span></li>
+              <li data-steps="1 2"><b>Which values are allowed</b><span>code lists, units, “empty means unknown”</span></li>
+              <li data-steps="2 3"><b>What a package says about itself</b><span>source, method, date, coverage</span></li>
+              <li data-steps="2"><b>What the checks test</b><span>valid codes, no fake zeros, nothing undeclared</span></li>
+              <li data-steps="3"><b>How a map shows it</b><span>themes, legends, neutral “no data”</span></li>
+            </ul>
+            <p class="rb-hint" id="rb-hint" aria-live="polite">Every step reads from it.</p>
+          </div>
+
+          <ol class="steps">
+            <li>
+              <button type="button" class="step" data-step="1" aria-pressed="false">
+                <span class="step-zone">Your data · your tools</span>
+                <span class="step-top"><span class="step-n">1</span><span class="step-t">Translate</span></span>
+                <span class="step-d">Look at what your source really contains and match each field to the shared meaning. Anything extra stays as a local column.</span>
+                <span class="step-who"><span class="dot dot-human"></span>Local experts, optionally helped by AI</span>
+                <span class="step-status"><span class="status s-prop">Proposed</span> country adapters <span class="status s-exists">Exists</span> a German reference, earlier format</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="step" data-step="2" aria-pressed="false">
+                <span class="step-zone">Shared format · shared checks</span>
+                <span class="step-top"><span class="step-n">2</span><span class="step-t">Package &amp; check</span></span>
+                <span class="step-d">Put the result into one standard package that describes itself. Two automatic checks test the real files. Any error, and it does not ship.</span>
+                <span class="step-who"><span class="dot dot-gate"></span>Open tools: Portolan, plus a Colouring check</span>
+                <span class="step-status"><span class="status s-ext">External</span> Portolan <span class="status s-doc">Documented draft</span> Colouring check</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="step" data-step="3" aria-pressed="false">
+                <span class="step-zone">Your choice of host</span>
+                <span class="step-top"><span class="step-n">3</span><span class="step-t">Share &amp; use</span></span>
+                <span class="step-d">You decide if and where the package is published. Then people, software and AI agents can all use the same files.</span>
+                <span class="step-who"><span class="dot dot-human"></span>Your decision; nothing uploads by itself</span>
+                <span class="step-status"><span class="status s-ext">External</span> GeoLibre <span class="status s-prop">Proposed</span> reading packages</span>
+              </button>
+            </li>
+          </ol>
+
+          <a class="flow-next" href="#ready">What comes out of step 3? <span aria-hidden="true">↓</span></a>
+        </div>
+
+        <div class="status-key" aria-label="Status labels">
+          <span class="status s-exists">Exists</span> working today
+          <span class="status s-doc">Documented draft</span> specified on paper
+          <span class="status s-prop">Proposed</span> idea, not built
+          <span class="status s-ext">External</span> independent project
+        </div>
+
+        <div class="ai-explain">
+          <h3>Where AI helps — and where it doesn’t</h3>
+          <p class="ai-intro">By “AI” we mean an assistant, similar to a chatbot, that can read files and write drafts. It is fast and patient, but it can be <em>confidently wrong</em>. So in this proposal it prepares work and never has the last word. Here is one column going through step 1.</p>
+
+          <p class="ai-ex-label"><span class="tag-illustration">Example</span> A hypothetical source column</p>
+          <ol class="ai-story">
+            <li class="ai-card ai-card-ai">
+              <p class="ai-role"><span class="dot dot-ai"></span><span>1 · The assistant suggests</span></p>
+              <p class="ai-quote">“The column <code>yr_built</code> looks like <code>construction_year</code>. But the source manual says it records the year a building was <em>registered</em>, which can be years after it was finished. Please check.”</p>
+              <p class="ai-why"><b>Good at:</b> reading long manuals, spotting likely matches, raising doubts.</p>
+            </li>
+            <li class="ai-card ai-card-human">
+              <p class="ai-role"><span class="dot dot-human"></span><span>2 · A person decides</span></p>
+              <p class="ai-quote">“Right — here, registration can lag behind completion. We won’t call it the construction year. We keep it as a local column, so nothing is lost.”</p>
+              <p class="ai-why"><b>Only people can judge</b> meaning, local context, and whether to publish.</p>
+            </li>
+            <li class="ai-card ai-card-gate">
+              <p class="ai-role"><span class="dot dot-gate"></span><span>3 · The check confirms</span></p>
+              <ul class="ai-checks">
+                <li><span aria-hidden="true">✓</span> <code>construction_year</code> is declared “not provided”, not faked</li>
+                <li><span aria-hidden="true">✓</span> the local column has its own prefix and a label</li>
+                <li><span aria-hidden="true">✓</span> no placeholder values such as 0 or 9999</li>
+                <li class="ai-result">0 errors · ready to package</li>
+              </ul>
+              <p class="ai-why"><b>A program with fixed rules:</b> same files, same answer, every time. An AI saying “looks fine” never counts.</p>
+            </li>
+          </ol>
+          <p class="ai-moral">AI speeds up the reading. <span>People own the meaning.</span> <span>Fixed rules have the last word.</span></p>
+          <p class="ai-foot"><span class="status s-prop">Proposed</span> This assisted workflow is an idea under discussion and has not been built. AI is optional: every step can be done by hand.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ READY -->
+    <section class="section section-tint" id="ready" data-label="What comes out">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>05</span> What comes out</p>
+          <h2>One package, ready for people,<br>software <em>and</em> AI agents.</h2>
+          <p class="section-intro">The result is not a database or a website. It is a folder of open files that explains itself. The same files serve someone looking at a map, a script running an analysis and an AI agent answering a question. Choose a reader to see which files it uses.</p>
+        </header>
+
+        <div class="ready">
+          <figure class="pkg">
+            <figcaption class="pkg-cap"><span class="tag-illustration">Example</span> A hypothetical package for “Place A”</figcaption>
+            <ul class="pkg-tree" id="pkg-tree">
+              <li class="pk-dir"><span class="pk-name">place-a/</span></li>
+              <li class="d1" data-for="software agents"><span class="pk-name">catalog.json</span><span class="pk-note">table of contents, in the STAC standard</span></li>
+              <li class="d1" data-for="people agents"><span class="pk-name">README.md</span><span class="pk-note">plain-language description for people</span></li>
+              <li class="d1" data-for="agents"><span class="pk-name">AGENTS.md</span><span class="pk-note">a guide written for AI agents</span></li>
+              <li class="d1 pk-dir"><span class="pk-name">buildings/</span></li>
+              <li class="d2" data-for="people software agents"><span class="pk-name">collection.json</span><span class="pk-note">what each column means, source, method, coverage</span></li>
+              <li class="d2 pk-key" data-for="software agents"><span class="pk-name">buildings.parquet</span><span class="pk-note">the data itself: one row per building (GeoParquet)</span></li>
+              <li class="d2 pk-key" data-for="people"><span class="pk-name">buildings.pmtiles</span><span class="pk-note">a fast map view, made from the data (PMTiles)</span></li>
+              <li class="d2" data-for="people"><span class="pk-name">styles/</span><span class="pk-note">one map style per theme: use, age, height…</span></li>
+              <li class="d2" data-for="people"><span class="pk-name">thumbnail.png</span><span class="pk-note">a preview picture</span></li>
+              <li class="d2" data-for="people agents"><span class="pk-name">README.md · AGENTS.md</span><span class="pk-note">the same two guides, for this layer</span></li>
+            </ul>
+            <p class="pkg-foot">Plain files: they can sit on any web server or cloud storage. No database, no login.</p>
+          </figure>
+
+          <div class="readers">
+            <div class="reader-tabs" role="tablist" aria-label="Choose a reader">
+              <button type="button" role="tab" class="reader-tab" data-r="people" aria-selected="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 4.5-6.5 8-6.5s6.5 2 8 6.5"/></svg>
+                <span>People</span>
+              </button>
+              <button type="button" role="tab" class="reader-tab" data-r="software" aria-selected="false" tabindex="-1">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7 3 12l5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+                <span>Software</span>
+              </button>
+              <button type="button" role="tab" class="reader-tab" data-r="agents" aria-selected="false" tabindex="-1">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M9 16h6"/></svg>
+                <span>AI agents</span>
+              </button>
+            </div>
+            <div class="reader-panel" id="reader-panel" role="tabpanel" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <h3 class="subhead">Why the contract makes this work</h3>
+        <div class="why3">
+          <article class="why">
+            <p class="why-k">Same names, same codes</p>
+            <p>One query, one map style or one agent prompt works for every place that follows the contract.</p>
+          </article>
+          <article class="why">
+            <p class="why-k">Empty means unknown</p>
+            <p>No hidden zeros or 9999s, so totals and averages are not quietly wrong.</p>
+          </article>
+          <article class="why">
+            <p class="why-k">Every value says where it came from</p>
+            <p>Method and coverage let a person, or an agent, say how far a number can be trusted.</p>
+          </article>
+        </div>
+
+        <ul class="ready-status">
+          <li><span class="status s-ext">External</span> Portolan already defines this package layout, including <code>README.md</code> and <code>AGENTS.md</code>.</li>
+          <li><span class="status s-doc">Documented draft</span> The Colouring metadata inside it: meanings, methods, coverage, themes.</li>
+          <li><span class="status s-prop">Proposed</span> Colouring guidance for agents, and the first real package.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================ MAP -->
+    <section class="section" id="map" data-label="The map">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>06</span> What the map does with it</p>
+          <h2>The data tells the map<br>what it can show.</h2>
+          <p class="section-intro">Every delivery declares what it contains. A compatible map builds its themes, filters and building cards from that declaration — and is honest about what is missing. Switch between two hypothetical places:</p>
+        </header>
+
+        <div class="mock" id="mock">
+          <div class="mock-bar">
+            <div class="seg" role="group" aria-label="Choose a hypothetical delivery">
+              <button type="button" data-place="a" aria-pressed="true"><b>Place A</b><span>3D city model + register</span></button>
+              <button type="button" data-place="b" aria-pressed="false"><b>Place B</b><span>community-mapped outlines</span></button>
+            </div>
+            <span class="mock-tag">Concept mock-up · generated data</span>
+          </div>
+
+          <div class="mock-grid">
+            <div class="mock-mapcol">
+              <div class="theme-chips" role="group" aria-label="Map theme" id="theme-chips"></div>
+              <p class="theme-reason" id="theme-reason" aria-live="polite"></p>
+              <div class="mock-map">
+                <svg id="mock-map" viewBox="0 0 600 400" role="img" aria-labelledby="mm-title">
+                  <title id="mm-title">Generated building outlines coloured by the selected theme. Select a building to see its card.</title>
+                </svg>
+                <div class="legend" id="legend"></div>
+              </div>
+            </div>
+            <aside class="mock-side">
+              <div class="bcard" id="bcard" aria-live="polite"></div>
+              <div class="cats-state">
+                <p class="col-label">All eight categories stay visible</p>
+                <ul id="cats-state"></ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <p class="fineprint"><span class="tag-illustration">Concept mock-up</span> Generated, hypothetical data. This is not the GeoLibre interface; it illustrates the frontend behaviour described in the draft contract.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ POSSIBILITIES -->
+    <section class="section section-tint" id="possibilities" data-label="Possibilities">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>07</span> What could people do with it?</p>
+          <h2>Comparable data<br>opens new questions.</h2>
+          <p class="section-intro">These are possibilities, not features. They become realistic once several places deliver data under the same meaning.</p>
+        </header>
+        <div class="poss">
+          <article class="poss-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="20" width="10" height="22"/><rect x="19" y="10" width="10" height="32"/><rect x="33" y="26" width="10" height="16"/><path d="M3 42h42"/></svg>
+            <h3>Compare cities fairly</h3>
+            <p>Building age, height or use across places — knowing the numbers measure the same thing.</p>
+          </article>
+          <article class="poss-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 8 18v24h32V18z"/><path d="M19 42V28h10v14"/><path d="M30 10l6 0 0 8"/></svg>
+            <h3>Plan energy retrofits</h3>
+            <p>Find building stock that may need attention — with modelled demand and metered consumption always kept apart.</p>
+          </article>
+          <article class="poss-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 5"/></svg>
+            <h3>Read a city’s history</h3>
+            <p>Construction and demolition years, heritage designations and building condition on one map.</p>
+          </article>
+          <article class="poss-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 38c6-10 12-14 18-14s12 4 18 14"/><circle cx="24" cy="14" r="6"/></svg>
+            <h3>Fill the gaps together</h3>
+            <p>A future contribution interface could let people add roof shapes or materials under the same definitions, marked as crowdsourced.</p>
+          </article>
+          <article class="poss-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 14h32M8 24h32M8 34h20"/><path d="M34 30l6 6-6 6"/></svg>
+            <h3>Research and teaching</h3>
+            <p>Reproducible studies on open, documented data: method, source and coverage are part of the package.</p>
+          </article>
+          <article class="poss-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="8" width="36" height="26" rx="2"/><path d="M16 42h16M24 34v8"/><path d="M14 20l5 5 9-9"/></svg>
+            <h3>Build your own tools</h3>
+            <p>Open formats (GeoParquet, PMTiles, STAC metadata) work in many existing GIS tools, notebooks and web maps.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ JOIN + STATUS -->
+    <section class="section" id="join" data-label="Join in">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>08</span> How places could take part</p>
+          <h2>Fork it. Map it.<br>Keep it yours.</h2>
+          <p class="section-intro">The proposal is a shared repository with two zones. The shared part changes only through review; the local part is entirely in your hands.</p>
+        </header>
+
+        <div class="zones">
+          <article class="zone-card zone-card-shared">
+            <p class="zone-k">Shared · changes by proposal</p>
+            <h3>Contract zone</h3>
+            <ul>
+              <li>Contract and code lists</li>
+              <li>Pinned format versions</li>
+              <li>Colouring check</li>
+              <li>Reference example and test fixtures</li>
+            </ul>
+          </article>
+          <div class="zone-arrow" aria-hidden="true">
+            <span>proposals</span>
+            <svg viewBox="0 0 60 24"><path d="M58 12H4M12 4 4 12l8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            <svg viewBox="0 0 60 24"><path d="M2 12h54M48 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            <span>contract versions</span>
+          </div>
+          <article class="zone-card zone-card-local">
+            <p class="zone-k">Yours · change freely</p>
+            <h3>Country zone</h3>
+            <ul>
+              <li>Source adapters for your data</li>
+              <li>Your pipeline and tooling of choice</li>
+              <li>Local code lists and crosswalks</li>
+              <li>Your Tier 2 attributes</li>
+            </ul>
+          </article>
+        </div>
+        <p class="fineprint center">Tooling in the country zone is free. A German regional reference pipeline uses PostGIS, GDAL, tippecanoe and the Bruin pipeline tool — a reference, not a requirement.</p>
+
+        <h3 class="subhead" id="status">Where things stand — honestly</h3>
+        <div class="ledger">
+          <div class="ledger-col">
+            <p class="ledger-h"><span class="status s-exists">Exists</span></p>
+            <ul>
+              <li><b>GeoLibre</b> — open-source, cloud-native GIS for web, desktop and mobile <span class="status s-ext">External</span></li>
+              <li><b>Portolan</b> — open specification and tools for publishing geospatial data as static catalogs; pre-1.0 <span class="status s-ext">External</span></li>
+              <li><b>A regional reference</b> in Germany: a pipeline and a GeoLibre plugin prototype. Both predate the contract and use an earlier release format</li>
+            </ul>
+          </div>
+          <div class="ledger-col">
+            <p class="ledger-h"><span class="status s-doc">Documented draft</span></p>
+            <ul>
+              <li><b>Building contract 0.1.0</b> — attribute dictionary, code lists, measurement rules, map behaviour</li>
+              <li><b>Decision log</b> — what was decided for Tier 1, why, and on which evidence</li>
+              <li><b>Packaging decisions</b> — a Colouring profile on top of Portolan, with pinned versions</li>
+              <li><b>Colouring check</b> — its rules are specified</li>
+            </ul>
+          </div>
+          <div class="ledger-col">
+            <p class="ledger-h"><span class="status s-prop">Proposed · not built</span></p>
+            <ul>
+              <li>Machine-readable attribute registry</li>
+              <li>Colouring check implementation</li>
+              <li>AI-assisted inspection and mapping workflow</li>
+              <li>Colouring guidance for AI agents inside each package</li>
+              <li>A first contract-conformant delivery</li>
+              <li>GeoLibre reading contract deliveries</li>
+              <li>Contribution interface; points-of-interest collection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ FEEDBACK -->
+    <section class="section section-feedback" id="feedback" data-label="Your feedback">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow"><span>09</span> We need your critique</p>
+          <h2>This is a draft.<br><em>Please push back.</em></h2>
+          <p class="section-intro">The most useful feedback is specific: a definition that doesn’t fit your data, a requirement we missed, or a reason your organisation couldn’t take part.</p>
+        </header>
+
+        <ol class="questions" id="questions">
+          <li>
+            <p class="q-topic">Definitions</p>
+            <h3>Do our definitions match your reality?</h3>
+            <p>Height runs from the lowest ground point to the highest roof edge; “year built” is the completion year. Can your data say that — and what would you have to withhold?</p>
+          </li>
+          <li>
+            <p class="q-topic">Building use</p>
+            <h3>Do eleven use classes fit your buildings?</h3>
+            <p>Residential, commercial, hospitality, public services, education, health and more — each under an INSPIRE parent. What doesn’t fit, or is drawn in the wrong place?</p>
+          </li>
+          <li>
+            <p class="q-topic">Local needs</p>
+            <h3>What must stay local — and what should be shared?</h3>
+            <p>Which attributes from your country are essential Tier 2 detail, and which deserve to become part of the shared core?</p>
+          </li>
+          <li>
+            <p class="q-topic">Open code lists</p>
+            <h3>How should we describe materials and roofs?</h3>
+            <p>Roof shape, facade and structural material still have no agreed code lists. Which existing classifications should we learn from?</p>
+          </li>
+          <li>
+            <p class="q-topic">Governance</p>
+            <h3>Who should decide on changes?</h3>
+            <p>How should contract versions be reviewed and approved, and how should forks propose changes upstream?</p>
+          </li>
+          <li>
+            <p class="q-topic">Adoption</p>
+            <h3>What would stop you from taking part?</h3>
+            <p>Licensing, effort, tooling, trust in automated mapping, hosting? Tell us what the first step would need to look like.</p>
+          </li>
+        </ol>
+
+        <div class="feedback-actions">
+          <button type="button" class="btn btn-ink" id="copy-questions">Copy the questions</button>
+          <span class="copy-status" id="copy-status" role="status"></span>
+          <p class="feedback-note">Share your thoughts in the discussion today. A public channel for written feedback will be announced when this proposal is published.</p>
+        </div>
+
+        <div class="takeaway">
+          <p>We want building data from different places to be <strong>understandable, comparable and reusable</strong> through a shared, open contract — <em>without removing local flexibility.</em></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <p class="footer-title">Colouring Building Contract</p>
+        <p>Draft proposal · contract version 0.1.0 (draft) · October 2026. Not published as a standard, not implemented, not validated.</p>
+      </div>
+      <div>
+        <p class="footer-title">Independence and names</p>
+        <p>This is an independent community proposal. It is inspired by the Colouring Cities approach but is not an official Colouring Cities Research Programme standard. It is not endorsed by INSPIRE or the European Commission, OGC, Eurostat, Portolan, GeoLibre, OpenStreetMap, Overture Maps or PLATEAU. Names of projects and standards belong to their respective owners.</p>
+      </div>
+      <div>
+        <p class="footer-title">References</p>
+        <ul class="refs">
+          <li><a href="https://inspire-mif.github.io/technical-guidelines/data/bu/dataspecification_bu.html" rel="noopener">INSPIRE Buildings guidelines</a></li>
+          <li><a href="https://inspire.ec.europa.eu/codelist/" rel="noopener">INSPIRE code list registry</a></li>
+          <li><a href="https://docs.ogc.org/is/20-010/20-010.html" rel="noopener">CityGML 3.0 conceptual model</a></li>
+          <li><a href="https://github.com/tudelft3d/Energy_ADE" rel="noopener">CityGML Energy ADE</a></li>
+          <li><a href="https://www.portolan-sdi.org/" rel="noopener">Portolan</a></li>
+          <li><a href="https://github.com/opengeos/GeoLibre" rel="noopener">GeoLibre</a></li>
+          <li><a href="https://colouringcities.org/" rel="noopener">Colouring Cities Research Programme</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <noscript><p class="noscript">The interactive diagrams need JavaScript. All text content remains readable without it.</p></noscript>
+  <script src="assets/main.js" defer></script>
+</body>
+</html>
